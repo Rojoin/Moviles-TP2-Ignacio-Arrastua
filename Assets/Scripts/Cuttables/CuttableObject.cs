@@ -31,9 +31,9 @@ namespace Cuttables
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Slice"))
+            if (other.CompareTag("Player"))
             {
-             //   Slice();
+                Slice();
             }   
             
         }
