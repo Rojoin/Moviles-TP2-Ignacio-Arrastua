@@ -1,22 +1,24 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Inputs
 {
     public class InputManager : MonoBehaviour
     {
-        [SerializeField] private Vector2ChannelSO inputChannel;
+        [SerializeField] private Vector2ChannelSO inputMovementChannel;
+        [SerializeField] private BoolChannelSO touchChannel;
         private PlayerInput _playerInput;
 
-        private void OnEnable()
+        public void OnInputMove(InputAction.CallbackContext ctx)
         {
-            inputChannel.Subscribe(_playerInput.actions.);
+            inputMovementChannel.RaiseEvent(ctx.ReadValue<Vector2>());
         }
-
-        private void OnDestroy()
+         public void OnInputActivated(InputAction.CallbackContext ctx)
         {
-            throw new NotImplementedException();
+            touchChannel.RaiseEvent(ctx.ReadValue<bool>());
         }
+   
     }
 }

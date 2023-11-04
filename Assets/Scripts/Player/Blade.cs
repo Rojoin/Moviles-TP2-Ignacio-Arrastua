@@ -1,17 +1,23 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
     public class Blade : MonoBehaviour
     {
+        
+        [Header("Channels")]
+        [SerializeField] private Vector2ChannelSO inputMovementChannel;
+        [Header("Values")]
+        [SerializeField] private float minSliceVelocity = 0.01f;
+        [SerializeField] private float force = 50.0f;
         private Camera mainCamera;
         private Vector3 direction;
         private Vector3 newPosition;
-        [SerializeField] private float minSliceVelocity = 0.01f;
-        private float force = 50.0f;
-        private bool isSlicing;
         private SphereCollider _collider;
+        private bool isSlicing;
+        private Vector3 inputPosition;
 
         private void Awake()
         {
@@ -22,10 +28,17 @@ namespace Player
         private void OnEnable()
         {
             StopSlice();
+            inputMovementChannel.Subscribe(SetInputPosition);
+        }
+
+        private void SetInputPosition(Vector2 obj)
+        {
+            inputPosition = obj;
         }
 
         private void OnDisable()
         {
+            inputMovementChannel.Unsubscribe(SetInputPosition);
             StopSlice();
         }
 
@@ -46,16 +59,13 @@ namespace Player
         }
 
         private void ContinueSlice()
-        { 
+        {
             Debug.Log("Slice Continue");
-            Vector3 inputPosition = Input.mousePosition;
             
             newPosition = mainCamera.ScreenToWorldPoint(inputPosition);
             newPosition.z = 0.0f;
             direction = newPosition - transform.position;
-            
-            
-            
+
             float velocity = direction.magnitude / Time.deltaTime;
             _collider.enabled = velocity > minSliceVelocity;
             transform.position = newPosition;
@@ -64,10 +74,9 @@ namespace Player
         private void StartSlice()
         {
             Debug.Log("Slice Start");
-            Vector3 inputPosition = Input.mousePosition;
+
             newPosition = mainCamera.ScreenToWorldPoint(inputPosition);
             newPosition.z = 0.0f;
-            Debug.Log(newPosition);
             transform.position = newPosition;
 
             isSlicing = true;
