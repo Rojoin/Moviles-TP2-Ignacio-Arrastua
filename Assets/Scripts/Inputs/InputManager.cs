@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using TouchPhase = UnityEngine.TouchPhase;
 
 namespace Inputs
 {
@@ -15,10 +16,7 @@ namespace Inputs
         {
             inputMovementChannel.RaiseEvent(ctx.ReadValue<Vector2>());
         }
-         public void OnInputActivated(InputAction.CallbackContext ctx)
-        {
-            touchChannel.RaiseEvent(ctx.ReadValue<bool>());
-        }
-   
+
+        
     }
 }
