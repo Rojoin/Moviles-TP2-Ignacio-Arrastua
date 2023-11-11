@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,23 +11,28 @@ namespace Player
         [SerializeField] private Vector2ChannelSO inputMovementChannel;
         [Header("Values")]
         [SerializeField] private float minSliceVelocity = 0.01f;
-        [SerializeField] private float force = 50.0f;
+        [SerializeField] public float force = 50.0f;
         private Camera mainCamera;
-        private Vector3 direction;
-        private Vector3 newPosition;
-        private SphereCollider _collider;
+        public Plane plane;
+        public Vector3 direction;
+        public Vector3 newPosition;
+        private Collider _collider;
         private bool isSlicing;
         private bool isTouching;
         private Vector3 inputPosition;
+        private LinkedList<Vector3> previousPosition = new LinkedList<Vector3>();
+        [SerializeField] private int maxPreviousPos;
 
         private void Awake()
         {
-            _collider = GetComponent<SphereCollider>();
+            _collider = GetComponent<Collider>();
             mainCamera = Camera.main;
+     
         }
 
         private void OnEnable()
         {
+            plane = new Plane(mainCamera.transform.position, force);
             StopSlice();
             inputMovementChannel.Subscribe(SetInputPosition);
         }
@@ -35,6 +41,7 @@ namespace Player
         private void SetInputPosition(Vector2 obj)
         {
             inputPosition = obj;
+            ContinueSlice();
         }
 
         private void OnDisable()
@@ -45,7 +52,7 @@ namespace Player
 
         private void Update()
         {
-            ContinueSlice();
+           
         }
 
         private void ContinueSlice()
@@ -55,11 +62,19 @@ namespace Player
             newPosition = mainCamera.ScreenToWorldPoint(inputPosition);
             newPosition.z = 0.0f;
             direction = newPosition - transform.position;
+            previousPosition.AddFirst(newPosition);
+            if (previousPosition.Count > maxPreviousPos)
+            {
+                previousPosition.RemoveLast();
+            }
+            
 
             float velocity = direction.magnitude / Time.deltaTime;
             _collider.enabled = velocity > minSliceVelocity;
             isSlicing = velocity > minSliceVelocity;
             transform.position = newPosition;
+            
+          
         }
 
         private void StartSlice()
