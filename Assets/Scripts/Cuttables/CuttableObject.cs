@@ -10,8 +10,11 @@ namespace Cuttables
     public class CuttableObject : MonoBehaviour
     {
         [SerializeField] private GameObject whole;
-        [SerializeField] private GameObject cutted;
+        [SerializeField] private GameObject upperHull;
+        [SerializeField] private GameObject loverHull;
 
+        private Vector3 entryPoint;
+        private Vector3 exitPoint;
         private bool isCut;
 
         private Rigidbody rigidbody;
@@ -27,24 +30,31 @@ namespace Cuttables
         private void SliceObject(Blade player)
         {
             whole.SetActive(false);
-            //cutted.SetActive(true);
-            
-            Quaternion rotation = Quaternion.Euler(0, 0, 90);
-            var dist = rotation * player.direction;
+           
 
+            Quaternion rotation = Quaternion.Euler(0, 0, 90);
+            var dist = entryPoint - exitPoint;
+            dist.Normalize();
+            dist = rotation * dist;
 
             var objectPosition = whole.transform.position;
             SlicedHull hull = whole.Slice(objectPosition, dist);
 
-            GameObject upperHull = hull.CreateUpperHull(whole);
-            GameObject loverHull = hull.CreateLowerHull(whole);
+            Debug.Log(hull);
+            upperHull = hull.CreateUpperHull(whole);
+            loverHull = hull.CreateLowerHull(whole);
+            upperHull.transform.parent = this.transform;
+            loverHull.transform.parent = this.transform;
             upperHull.transform.position = objectPosition;
             loverHull.transform.position = objectPosition;
+            upperHull.transform.rotation = transform.rotation;
+            loverHull.transform.rotation = transform.rotation;
 
-            var rb1 = loverHull.AddComponent<Rigidbody>();
+            Rigidbody rb1 = loverHull.AddComponent<Rigidbody>();
             loverHull.AddComponent<BoxCollider>();
-            var rb2 = upperHull.AddComponent<Rigidbody>();
+            Rigidbody  rb2 = upperHull.AddComponent<Rigidbody>();
             upperHull.AddComponent<BoxCollider>();
+           
 
 
             rb1.velocity = rigidbody.velocity;
@@ -56,12 +66,23 @@ namespace Cuttables
             this.enabled = false;
         }
 
+        
+
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent<Blade>(out Blade player) && player.isSlicing)
+            {
+                exitPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+                SliceObject(player);
+            }
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<Blade>(out Blade player))
+            if (other.TryGetComponent<Blade>(out Blade player) && player.isSlicing)
             {
-                SliceObject(player);
+                entryPoint = other.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
             }
         }
     }
