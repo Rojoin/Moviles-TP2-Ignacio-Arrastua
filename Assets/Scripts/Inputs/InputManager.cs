@@ -17,6 +17,9 @@ namespace Inputs
             inputMovementChannel.RaiseEvent(ctx.ReadValue<Vector2>());
         }
 
-        
+        public void OnTouchInput(InputAction.CallbackContext ctx)
+        {
+            touchChannel.RaiseEvent(ctx.ReadValue<bool>());
+        }
     }
 }

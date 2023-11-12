@@ -32,6 +32,7 @@ public class MobileLogger : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
+            Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value ;
             pluginInstance = new AndroidJavaObject(className);
 
             unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");

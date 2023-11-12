@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "Touch",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "208338c2-966e-4e1a-8405-a911a1764bc2",
-                    "expectedControlType": "Digital",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

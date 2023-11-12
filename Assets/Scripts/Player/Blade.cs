@@ -17,7 +17,8 @@ namespace Player
         public Vector3 direction;
         public Vector3 newPosition;
         private Collider _collider;
-        private bool isSlicing;
+        private float velocity;
+        public bool isSlicing => velocity > minSliceVelocity;
         private bool isTouching;
         private Vector3 inputPosition;
         private LinkedList<Vector3> previousPosition = new LinkedList<Vector3>();
@@ -27,7 +28,6 @@ namespace Player
         {
             _collider = GetComponent<Collider>();
             mainCamera = Camera.main;
-     
         }
 
         private void OnEnable()
@@ -52,7 +52,6 @@ namespace Player
 
         private void Update()
         {
-           
         }
 
         private void ContinueSlice()
@@ -67,14 +66,11 @@ namespace Player
             {
                 previousPosition.RemoveLast();
             }
-            
 
-            float velocity = direction.magnitude / Time.deltaTime;
+
+            velocity = direction.magnitude / Time.deltaTime;
             _collider.enabled = velocity > minSliceVelocity;
-            isSlicing = velocity > minSliceVelocity;
             transform.position = newPosition;
-            
-          
         }
 
         private void StartSlice()
@@ -85,14 +81,12 @@ namespace Player
             newPosition.z = 0.0f;
             transform.position = newPosition;
 
-            isSlicing = true;
             _collider.enabled = isSlicing;
         }
 
         private void StopSlice()
         {
             Debug.Log("Slice Stop");
-            isSlicing = false;
             _collider.enabled = false;
         }
     }
