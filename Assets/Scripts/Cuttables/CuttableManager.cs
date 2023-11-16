@@ -24,7 +24,7 @@ namespace Cuttables
                     item => { Destroy(item.gameObject); }, false, cuttableSize, 100));
             }
         }
-        public Cuttables.CuttableObject AddNewItem(CuttableSO cuttableSo, Transform position)
+        public CuttableItem AddNewItem(CuttableSO cuttableSo, Vector3 position, Quaternion rotation)
         {
             var pool = cuttablesByID[cuttableSo.name];
             if (pool == null)
@@ -34,16 +34,15 @@ namespace Cuttables
             }
             GameObject newItem = null;
             pool.Get(out newItem);
-            newItem.GetComponent<CuttableObject>().OnDespawn.AddListener(OnDespawn);
+            newItem.GetComponent<CuttableItem>().OnDespawn.AddListener(OnDespawn);
 
-            _cuttableFactory.ItemConfigure(newItem, position);
-            newItem.transform.SetParent(parent);
-            return newItem.GetComponent<CuttableObject>();
+            _cuttableFactory.ItemConfigure(newItem, position,rotation,parent);
+            return newItem.GetComponent<CuttableItem>();
         }
         
         private void OnDespawn(GameObject CuttableItem)
         {
-            CuttableObject item = CuttableItem.GetComponent<CuttableObject>();
+            CuttableItem item = CuttableItem.GetComponent<CuttableItem>();
             item.OnDespawn.RemoveListener(OnDespawn);
             ObjectPool<GameObject> pool = cuttablesByID[item.SO.name];
             pool.Release(CuttableItem);
@@ -53,9 +52,12 @@ namespace Cuttables
 
     internal class CuttableFactory
     {
-        public void ItemConfigure(GameObject CuttableItem, Transform position)
+        public void ItemConfigure(GameObject CuttableItem, Vector3 position, Quaternion rotation,Transform parent)
         {
-            throw new NotImplementedException();
+            CuttableItem.transform.SetParent(parent);
+            CuttableItem.transform.position = position;
+            CuttableItem.transform.rotation = rotation;
+            CuttableItem.transform.localScale = Vector3.one;
         }
     }
 }
