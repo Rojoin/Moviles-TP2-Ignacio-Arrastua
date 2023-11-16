@@ -9,7 +9,7 @@ using Plane = EzySlice.Plane;
 
 namespace Cuttables
 {
-    public class CuttableObject : MonoBehaviour
+    public class CuttableItem : MonoBehaviour
     {
         [SerializeField] private GameObject whole;
         [SerializeField] private GameObject upperHull;
@@ -35,42 +35,49 @@ namespace Cuttables
         private void SliceObject(Blade player)
         {
             whole.SetActive(false);
-           
-
+            
             Quaternion rotation = Quaternion.Euler(0, 0, 90);
-            var dist = entryPoint - exitPoint;
+            
+            Vector3 dist = entryPoint - exitPoint;
             dist.Normalize();
             dist = rotation * dist;
 
-            var objectPosition = whole.transform.position;
+            Vector3 objectPosition = whole.transform.position;
             SlicedHull hull = whole.Slice(objectPosition, dist);
 
             Debug.Log(hull);
             upperHull = hull.CreateUpperHull(whole);
             loverHull = hull.CreateLowerHull(whole);
-            upperHull.transform.parent = this.transform;
-            loverHull.transform.parent = this.transform;
-            upperHull.transform.position = objectPosition;
-            loverHull.transform.position = objectPosition;
-            upperHull.transform.rotation = transform.rotation;
-            loverHull.transform.rotation = transform.rotation;
 
-            Rigidbody rb1 = loverHull.AddComponent<Rigidbody>();
-            loverHull.AddComponent<BoxCollider>();
-            Rigidbody  rb2 = upperHull.AddComponent<Rigidbody>();
-            upperHull.AddComponent<BoxCollider>();
-           
-
-
-            rb1.velocity = rigidbody.velocity;
-            rb2.velocity = rigidbody.velocity;
-            rb1.AddForceAtPosition(dist * player.force, objectPosition, ForceMode.Impulse);
-            rb2.AddForceAtPosition(dist * player.force, objectPosition, ForceMode.Impulse);
+            SetHullTransform(loverHull, objectPosition);
+            SetHullTransform(upperHull, objectPosition);
+            
+            SetRB(loverHull, dist, player.force, objectPosition);
+            SetRB(upperHull, dist, player.force, objectPosition);
+            
             collider.enabled = false;
             rigidbody.isKinematic = true;
-            this.enabled = false;
+            enabled = false;
+            OnCut.Invoke(gameObject);
         }
-        
+
+        private void SetHullTransform(GameObject hull, Vector3 objectPosition)
+        {
+           
+            hull.transform.parent = transform;
+           hull.transform.localScale = Vector3.one;
+            hull.transform.position = objectPosition;
+            hull.transform.rotation = transform.rotation;
+        }
+
+        private void SetRB(GameObject hull, Vector3 dist, float force, Vector3 objectPosition)
+        {
+            Rigidbody rb = hull.AddComponent<Rigidbody>();
+            hull.AddComponent<BoxCollider>();
+            rb.velocity = rigidbody.velocity;
+            rb.AddForceAtPosition(dist * force, objectPosition, ForceMode.Impulse);
+        }
+
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent<Blade>(out Blade player) && player.isSlicing)
