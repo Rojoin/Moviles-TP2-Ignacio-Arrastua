@@ -8,7 +8,8 @@ using TMPro;
 public class GooglePlayController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private TextMeshProUGUI detailsText;
+   
+
     public void Start()
     {
         SignIn();
@@ -19,7 +20,7 @@ public class GooglePlayController : MonoBehaviour
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
     }
 
-    internal void ProcessAuthentication(SignInStatus status)
+    private void ProcessAuthentication(SignInStatus status)
     {
         if (status == SignInStatus.Success)
         {
@@ -27,17 +28,18 @@ public class GooglePlayController : MonoBehaviour
             string userName = PlayGamesPlatform.Instance.GetUserDisplayName();
             string id = PlayGamesPlatform.Instance.GetUserId();
             string imageUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
-            detailsText.text = "Sucessfully login:" + userName;
 
+            Debug.Log("Sucessfully login:" + userName);
         }
         else
         {
-            detailsText.text = "Sign in Failed!";
+            Debug.Log("Sign in Failed!");
             // Disable your integration with Play Games Services or show a login button
             // to ask users to sign-in. Clicking it should call
             // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
         }
     }
+
     public void ManualSignIn()
     {
         PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication);
