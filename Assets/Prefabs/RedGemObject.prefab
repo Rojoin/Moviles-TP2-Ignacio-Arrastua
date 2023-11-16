@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3223981463809629595}
   - component: {fileID: 4574388168281194827}
   m_Layer: 7
-  m_Name: Object 6
+  m_Name: RedGemObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
