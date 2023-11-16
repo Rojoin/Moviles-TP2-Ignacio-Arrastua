@@ -50,9 +50,6 @@ namespace Player
             StopSlice();
         }
 
-        private void Update()
-        {
-        }
 
         private void ContinueSlice()
         {

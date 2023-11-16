@@ -7,9 +7,6 @@ using TMPro;
 
 public class GooglePlayController : MonoBehaviour
 {
-    // Start is called before the first frame update
-   
-
     public void Start()
     {
         SignIn();
