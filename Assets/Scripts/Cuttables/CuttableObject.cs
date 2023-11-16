@@ -1,8 +1,10 @@
 ﻿using System;
 using EzySlice;
 using Player;
+using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using Plane = EzySlice.Plane;
 
 namespace Cuttables
@@ -13,12 +15,15 @@ namespace Cuttables
         [SerializeField] private GameObject upperHull;
         [SerializeField] private GameObject loverHull;
 
+        public UnityEvent<GameObject> OnCut;
+        public UnityEvent<GameObject> OnDespawn;
         private Vector3 entryPoint;
         private Vector3 exitPoint;
         private bool isCut;
 
         private Rigidbody rigidbody;
         private BoxCollider collider;
+        public CuttableSO SO;
 
         private void Awake()
         {
@@ -65,10 +70,7 @@ namespace Cuttables
             rigidbody.isKinematic = true;
             this.enabled = false;
         }
-
         
-
-
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent<Blade>(out Blade player) && player.isSlicing)
