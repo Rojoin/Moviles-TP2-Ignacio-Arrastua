@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "Touch",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "208338c2-966e-4e1a-8405-a911a1764bc2",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Touch",
                     "processors": "",
-                    "interactions": "Press(behavior=2)",
-                    "initialStateCheck": false
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -51,17 +51,6 @@
                     "name": "",
                     "id": "72ad2380-ccaa-451d-8b00-aff8d6bf1996",
                     "path": "<Touchscreen>/primaryTouch",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Touch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dc9c2cee-68ba-422c-a726-25ada2fa719d",
-                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

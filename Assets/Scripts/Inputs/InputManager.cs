@@ -1,8 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Serialization;
-using TouchPhase = UnityEngine.TouchPhase;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
+
 
 namespace Inputs
 {
@@ -19,7 +22,18 @@ namespace Inputs
 
         public void OnTouchInput(InputAction.CallbackContext ctx)
         {
-            touchChannel.RaiseEvent(ctx.ReadValue<bool>());
+           var a = ctx.ReadValue<TouchState>();
+            switch (a.phase)
+            {
+                case TouchPhase.Moved:
+                case TouchPhase.Stationary:
+                    touchChannel.RaiseEvent(true);
+                    break;
+                case TouchPhase.Ended:
+                case TouchPhase.Canceled:
+                    touchChannel.RaiseEvent(false);
+                    break;
+            }
         }
     }
 }
