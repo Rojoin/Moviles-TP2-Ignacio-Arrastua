@@ -9,6 +9,7 @@ namespace Player
     {
         [Header("Channels")]
         [SerializeField] private Vector2ChannelSO inputMovementChannel;
+        [SerializeField] private BoolChannelSO inputTouchChannel;
         [Header("Values")]
         [SerializeField] private float minSliceVelocity = 0.01f;
         [SerializeField] public float force = 50.0f;
@@ -30,23 +31,41 @@ namespace Player
             mainCamera = Camera.main;
         }
 
+        private void OnDestroy()
+        {
+        }
+
+        private void ChangeTouchStatus(bool state)
+        {
+            isTouching = state;
+            if (!isTouching)
+            {
+                StopSlice();
+            }
+        }
+
         private void OnEnable()
         {
             plane = new Plane(mainCamera.transform.position, force);
             StopSlice();
             inputMovementChannel.Subscribe(SetInputPosition);
+            inputTouchChannel.Subscribe(ChangeTouchStatus);
         }
 
 
         private void SetInputPosition(Vector2 obj)
         {
-            inputPosition = obj;
-            ContinueSlice();
+            if (isTouching)
+            {
+                inputPosition = obj;
+                ContinueSlice();
+            }
         }
 
         private void OnDisable()
         {
             inputMovementChannel.Unsubscribe(SetInputPosition);
+            inputTouchChannel.Unsubscribe(ChangeTouchStatus);
             StopSlice();
         }
 
@@ -64,9 +83,8 @@ namespace Player
                 previousPosition.RemoveLast();
             }
 
-
             velocity = direction.magnitude / Time.deltaTime;
-            _collider.enabled = velocity > minSliceVelocity;
+            _collider.enabled = velocity > minSliceVelocity && previousPosition.Count > 1;
             transform.position = newPosition;
         }
 
@@ -85,6 +103,8 @@ namespace Player
         {
             Debug.Log("Slice Stop");
             _collider.enabled = false;
+            previousPosition.Clear();
+            velocity = 0;
         }
     }
 }
