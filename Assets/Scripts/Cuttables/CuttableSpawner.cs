@@ -40,19 +40,19 @@ namespace Cuttables
         {
             while (enabled)
             {
+                var item = _cuttableManager._cuttableFactory.GetItem();
                 
-            CuttableSO item = cuttableObjects[Random.Range(0,cuttableObjects.Length)];
-            Vector3 position = new Vector3();
-            position.x = Random.Range(spawnArea.bounds.min.x,spawnArea.bounds.max.x);
-            position.y = Random.Range(spawnArea.bounds.min.y,spawnArea.bounds.max.y);
-            position.z = 0;
-            
-            Quaternion rotation = Quaternion.Euler(0.0f,0.0f,Random.Range(minAngle,maxAngle));
-            var inst = _cuttableManager.AddNewItem(item,position,rotation);
+                Vector3 position = new Vector3();
+                position.x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x);
+                position.y = Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y);
+                position.z = 0;
 
-            float force = Random.Range(minForce, maxForce);
-            inst.GetComponent<Rigidbody>().AddForce(inst.transform.up * force,ForceMode.Impulse);
-            yield return new WaitForSeconds(Random.Range(minSpawnDelay,maxSpawnDelay));
+                Quaternion rotation = Quaternion.Euler(0.0f, 0.0f, Random.Range(minAngle, maxAngle));
+                var inst = _cuttableManager.AddNewItem(item, position, rotation);
+
+                float force = Random.Range(minForce, maxForce);
+                inst.GetComponent<Rigidbody>().AddForce(inst.transform.up * force, ForceMode.Impulse);
+                yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
             }
         }
     }

@@ -12,8 +12,9 @@ namespace Cuttables
         [SerializeField] private Transform parent;
         private Dictionary<string, ObjectPool<GameObject>> cuttablesByID = new();
 
-        private CuttableFactory _cuttableFactory = new CuttableFactory();
-        int cuttableSize = 50;
+        public CuttableFactory _cuttableFactory = new RandomCuttableFactory();
+        public CuttableBuilder _cuttableBuilder = new ();
+        int cuttableSize = 2;
 
         private void Awake()
         {
@@ -36,7 +37,7 @@ namespace Cuttables
             pool.Get(out newItem);
             newItem.GetComponent<CuttableItem>().OnDespawn.AddListener(OnDespawn);
 
-            _cuttableFactory.ItemConfigure(newItem, position,rotation,parent);
+            _cuttableBuilder.ItemConfigure(newItem, position,rotation,parent);
             return newItem.GetComponent<CuttableItem>();
         }
         
@@ -48,16 +49,5 @@ namespace Cuttables
             pool.Release(CuttableItem);
         }
         
-    }
-
-    internal class CuttableFactory
-    {
-        public void ItemConfigure(GameObject CuttableItem, Vector3 position, Quaternion rotation,Transform parent)
-        {
-            CuttableItem.transform.SetParent(parent);
-            CuttableItem.transform.position = position;
-            CuttableItem.transform.rotation = rotation;
-            CuttableItem.transform.localScale = Vector3.one;
-        }
     }
 }
