@@ -10,6 +10,7 @@ namespace Player
         [Header("Channels")]
         [SerializeField] private Vector2ChannelSO inputMovementChannel;
         [SerializeField] private BoolChannelSO inputTouchChannel;
+        [SerializeField] private TrailRenderer trail;
         [Header("Values")]
         [SerializeField] private float minSliceVelocity = 0.01f;
         [SerializeField] public float force = 50.0f;
@@ -29,6 +30,7 @@ namespace Player
         {
             _collider = GetComponent<Collider>();
             mainCamera = Camera.main;
+            StopSlice();
         }
 
         private void OnDestroy()
@@ -59,6 +61,12 @@ namespace Player
             {
                 inputPosition = obj;
                 ContinueSlice();
+                trail.enabled = true;
+            }
+            else
+            {
+                StopSlice();
+                trail.enabled = false;
             }
         }
 
@@ -73,15 +81,19 @@ namespace Player
         private void ContinueSlice()
         {
             Debug.Log("Slice Continue");
-
+          
             newPosition = mainCamera.ScreenToWorldPoint(inputPosition);
             newPosition.z = 0.0f;
-            direction = newPosition - transform.position;
+            if (previousPosition.Count == 0)
+            {
+                transform.position = newPosition;
+            }
             previousPosition.AddFirst(newPosition);
             if (previousPosition.Count > maxPreviousPos)
             {
                 previousPosition.RemoveLast();
             }
+            direction = newPosition - transform.position;
 
             velocity = direction.magnitude / Time.deltaTime;
             _collider.enabled = velocity > minSliceVelocity && previousPosition.Count > 1;
