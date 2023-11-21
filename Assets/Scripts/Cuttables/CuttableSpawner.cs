@@ -13,6 +13,7 @@ namespace Cuttables
         [SerializeField] private CuttableSO[] cuttableObjects;
         [SerializeField] private CuttableManager _cuttableManager;
         [SerializeField] float minSpawnDelay = 0.25f;
+        [SerializeField] float cuttableSize = 0.25f;
         [SerializeField] float maxSpawnDelay = 1.0f;
         [SerializeField] private float minAngle = -15;
         [SerializeField] private float maxAngle = 15;
@@ -42,13 +43,13 @@ namespace Cuttables
             {
                 var item = _cuttableManager._cuttableFactory.GetItem();
                 
-                Vector3 position = new Vector3();
+                Vector3 position = new ();
                 position.x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x);
                 position.y = Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y);
                 position.z = 0;
 
                 Quaternion rotation = Quaternion.Euler(0.0f, 0.0f, Random.Range(minAngle, maxAngle));
-                var inst = _cuttableManager.AddNewItem(item, position, rotation);
+                var inst = _cuttableManager.AddNewItem(item, position, rotation,cuttableSize);
 
                 float force = Random.Range(minForce, maxForce);
                 inst.GetComponent<Rigidbody>().AddForce(inst.transform.up * force, ForceMode.Impulse);
