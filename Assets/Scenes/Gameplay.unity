@@ -376,12 +376,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cuttableObjects:
-  - {fileID: 3697767492733044902, guid: 9e720f5968bf13c4dae427c860d48537, type: 3}
-  - {fileID: 3697767492733044902, guid: da20f17a839ac51439f0e23860f55fd5, type: 3}
-  - {fileID: 3697767492733044902, guid: 260931ef8b89a154799a68ba4be91f38, type: 3}
-  - {fileID: 3697767492733044902, guid: 94c481395978c0542bf959aea11ef226, type: 3}
-  - {fileID: 3697767492733044902, guid: ae69f1c900c6bfd429aed574739b3595, type: 3}
-  - {fileID: 3697767492733044902, guid: cf288c174afd9854d8a0cdd76b0b9de0, type: 3}
+  - {fileID: 11400000, guid: 2e5bd2df3e38ca140a78762589c3ee24, type: 2}
+  - {fileID: 11400000, guid: 32ae5b1fa5124a44bb54e5a9b80a7703, type: 2}
+  - {fileID: 11400000, guid: 7460d9c172b4e6248be586e14dbd4c15, type: 2}
+  - {fileID: 11400000, guid: 10609126da7bb0d459658f0a0e2a73b4, type: 2}
+  - {fileID: 11400000, guid: 2ac5c18aa369bb4469f83196c76134b7, type: 2}
+  - {fileID: 11400000, guid: 9141aa54e946b8b4ca1a6b4432fb6a81, type: 2}
   _cuttableManager: {fileID: 0}
   minSpawnDelay: 0.25
   maxSpawnDelay: 2
