@@ -28,7 +28,7 @@ namespace Cuttables
             _cuttableFactory = new RandomCuttableFactory(cuttableSO);
         }
 
-        public CuttableItem AddNewItem(CuttableSO cuttableSo, Vector3 position, Quaternion rotation, float size)
+        public Cuttable AddNewItem(CuttableSO cuttableSo, Vector3 position, Quaternion rotation, float size)
         {
             var pool = cuttablesByID[cuttableSo.name];
             if (pool == null)
