@@ -3,32 +3,88 @@ using CustomSceneSwitcher.Switcher;
 using CustomSceneSwitcher.Switcher.Data;
 using Cuttables;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Managers
 {
     public class MenuManager : MonoBehaviour
     {
         [SerializeField] private SceneChangeData gameScene;
-        [SerializeField]  private CuttableItem _playCuttableItem;
+        [SerializeField] private SceneChangeData debugScene;
+        [SerializeField] private Button startGameButton;
+        [SerializeField] private Button debugButton;
+        [SerializeField] private Button storeButton;
+        [SerializeField] private Button backStoreButton;
+        [SerializeField] private Button creditsButton;
+        [SerializeField] private Button backCreditsButton;
+        [SerializeField] private Button exitButton;
+        [SerializeField] private CanvasGroup menuCanvas;
+        [SerializeField] private CanvasGroup storeCanvas;
+        [SerializeField] private CanvasGroup creditsCanvas;
+        private bool isCreditsActive;
+        private bool isStoreActive;
 
         private void Awake()
         {
-                _playCuttableItem.OnCut.AddListener(ChangeToPlayScene);
+            startGameButton.onClick.AddListener(ChangeGameplay);
+            debugButton.onClick.AddListener(ChangeToDebug);
+            exitButton.onClick.AddListener(ExitGame);
+            storeButton.onClick.AddListener(StoreToggle);
+            backStoreButton.onClick.AddListener(StoreToggle);
+            creditsButton.onClick.AddListener(CreditsToggle);
+            backCreditsButton.onClick.AddListener(CreditsToggle);
         }
 
         private void OnDestroy()
         {
-            _playCuttableItem.OnCut.RemoveAllListeners();
+            startGameButton.onClick.RemoveListener(ChangeGameplay);
+            debugButton.onClick.RemoveListener(ChangeToDebug);
+            exitButton.onClick.RemoveListener(ExitGame);
+            storeButton.onClick.RemoveListener(StoreToggle);
+            backStoreButton.onClick.RemoveListener(StoreToggle);
+            creditsButton.onClick.RemoveListener(CreditsToggle);
+            backCreditsButton.onClick.RemoveListener(CreditsToggle);
         }
 
-        private void ChangeToPlayScene(GameObject arg0)
+        private void ChangeToPlayScene()
         {
-            Invoke(nameof(ChangeGameplay),2.0f);
+            Invoke(nameof(ChangeGameplay), 2.0f);
         }
 
         private void ChangeGameplay()
         {
             SceneSwitcher.ChangeScene(gameScene);
+        }
+
+        private void ChangeToDebug()
+        {
+            SceneSwitcher.ChangeScene(debugScene);
+        }
+
+        private void SetCanvasVisibility(CanvasGroup canvas, bool state)
+        {
+            canvas.alpha = state ? 1 : 0;
+            canvas.interactable = state;
+            canvas.blocksRaycasts = state;
+        }
+
+        private void ExitGame()
+        {
+            Application.Quit();
+        }
+
+        private void StoreToggle()
+        {
+            isStoreActive = !isStoreActive;
+            SetCanvasVisibility(storeCanvas, isStoreActive);
+            menuCanvas.blocksRaycasts = !isStoreActive;
+        }
+
+        private void CreditsToggle()
+        {
+            isCreditsActive = !isCreditsActive;
+            SetCanvasVisibility(creditsCanvas, isCreditsActive);
+            menuCanvas.blocksRaycasts = !isCreditsActive;
         }
     }
 }
