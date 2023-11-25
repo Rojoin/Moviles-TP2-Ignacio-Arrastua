@@ -46,19 +46,18 @@ namespace Managers
             backCreditsButton.onClick.RemoveListener(CreditsToggle);
         }
 
-        private void ChangeToPlayScene()
-        {
-            Invoke(nameof(ChangeGameplay), 2.0f);
-        }
+    
 
         private void ChangeGameplay()
         {
             SceneSwitcher.ChangeScene(gameScene);
+            startGameButton.interactable = false;
         }
 
         private void ChangeToDebug()
         {
             SceneSwitcher.ChangeScene(debugScene);
+            debugButton.interactable = false;
         }
 
         private void SetCanvasVisibility(CanvasGroup canvas, bool state)

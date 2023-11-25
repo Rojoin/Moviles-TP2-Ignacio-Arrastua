@@ -27,7 +27,7 @@ namespace Cuttables
             _cuttableManager = GetComponent<CuttableManager>();
         }
 
-        private void OnEnable()
+        private void Start()
         {
             StartCoroutine(nameof(SpawnObjects));
         }
