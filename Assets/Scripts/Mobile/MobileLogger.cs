@@ -21,7 +21,7 @@ public class MobileLogger : MonoBehaviour
     private const string packageName = "com.rojoin.UnityLogger";
     private const string className = packageName + ".Logger";
     private AndroidJavaClass unityPlayer;
-    private AndroidJavaObject pluginInstance;
+    public AndroidJavaObject PluginInstance { get; private set; }
     private AndroidJavaObject unityActivity;
 
     private const string permission = "android.permission.WRITE_EXTERNAL_STORAGE";
@@ -33,11 +33,11 @@ public class MobileLogger : MonoBehaviour
         if (Application.platform == RuntimePlatform.Android)
         {
             Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value ;
-            pluginInstance = new AndroidJavaObject(className);
+            PluginInstance = new AndroidJavaObject(className);
 
             unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-            pluginInstance.CallStatic("initialize", unityActivity);
+            PluginInstance.CallStatic("initialize", unityActivity);
 
 
             Application.logMessageReceived += SendLogToAndroid;
@@ -51,7 +51,7 @@ public class MobileLogger : MonoBehaviour
                 Permission.RequestUserPermission(permission);
             }
 
-            pluginInstance.Call("CreateAlert");
+            PluginInstance.Call("CreateAlert");
         }
     }
 
@@ -62,19 +62,19 @@ public class MobileLogger : MonoBehaviour
             switch (type)
             {
                 case LogType.Error:
-                    pluginInstance.Call("SendLog", logString, 2);
+                    PluginInstance.Call("SendLog", logString, 2);
                     break;
                 case LogType.Assert:
-                    pluginInstance.Call("SendLog", logString);
+                    PluginInstance.Call("SendLog", logString);
                     break;
                 case LogType.Warning:
-                    pluginInstance.Call("SendLog", logString, 1);
+                    PluginInstance.Call("SendLog", logString, 1);
                     break;
                 case LogType.Log:
-                    pluginInstance.Call("SendLog", logString, 0);
+                    PluginInstance.Call("SendLog", logString, 0);
                     break;
                 case LogType.Exception:
-                    pluginInstance.Call("SendLog", logString, 3);
+                    PluginInstance.Call("SendLog", logString, 3);
                     break;
             }
         }
