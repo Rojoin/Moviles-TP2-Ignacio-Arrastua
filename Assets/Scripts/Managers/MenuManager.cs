@@ -2,6 +2,8 @@
 using CustomSceneSwitcher.Switcher;
 using CustomSceneSwitcher.Switcher.Data;
 using Cuttables;
+using Shop;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +23,7 @@ namespace Managers
         [SerializeField] private CanvasGroup menuCanvas;
         [SerializeField] private CanvasGroup storeCanvas;
         [SerializeField] private CanvasGroup creditsCanvas;
+      
         private bool isCreditsActive;
         private bool isStoreActive;
 

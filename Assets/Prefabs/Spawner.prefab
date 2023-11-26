@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &720731580479077194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6007110100422243822}
+  - component: {fileID: 2357275193385910331}
+  - component: {fileID: 3760339068741472347}
+  - component: {fileID: 3328831539583628544}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6007110100422243822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720731580479077194}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -30.3, z: 1.3}
+  m_LocalScale: {x: 36.894184, y: 1, z: 18.81768}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2357275193385910331
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720731580479077194}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.36, y: 1, z: 0.72402287}
+  m_Center: {x: 0, y: 0, z: 0.11245371}
+--- !u!114 &3760339068741472347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720731580479077194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871980c0d3b04f9b984ec28e0a451140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cuttableObjects:
+  - {fileID: 11400000, guid: 2e5bd2df3e38ca140a78762589c3ee24, type: 2}
+  _cuttableManager: {fileID: 0}
+  minSpawnDelay: 10
+  cuttableSize: 0.45
+  maxSpawnDelay: 11
+  minAngle: -15
+  maxAngle: 15
+  timeUntilDestroy: 10
+  minForce: 25
+  maxForce: 30
+--- !u!114 &3328831539583628544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720731580479077194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3108b28e057c4865a3bf10339694e1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cuttableSO:
+  - {fileID: 11400000, guid: 2e5bd2df3e38ca140a78762589c3ee24, type: 2}
+  - {fileID: 11400000, guid: 32ae5b1fa5124a44bb54e5a9b80a7703, type: 2}
+  - {fileID: 11400000, guid: 7460d9c172b4e6248be586e14dbd4c15, type: 2}
+  - {fileID: 11400000, guid: 10609126da7bb0d459658f0a0e2a73b4, type: 2}
+  - {fileID: 11400000, guid: 2ac5c18aa369bb4469f83196c76134b7, type: 2}
+  - {fileID: 11400000, guid: 9141aa54e946b8b4ca1a6b4432fb6a81, type: 2}
+  gameManager: {fileID: 0}
+  parent: {fileID: 0}

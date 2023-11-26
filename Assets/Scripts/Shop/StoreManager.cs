@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,9 +13,11 @@ namespace Shop
         [SerializeField] private Sprite blockStore;
         [SerializeField] private Sprite availableStore;
         [SerializeField] private Sprite inUseStore;
+        [SerializeField] private TextMeshProUGUI diamonds;
 
         private void Awake()
         {
+            diamonds.text = $"{_playerConfig.Money}";
             _playerConfig.Init();
             LoadShopItem();
             var maxBlades = _bladeSO.Length;
@@ -37,6 +40,11 @@ namespace Shop
                     currentShopItem.onClick.AddListener(BuyItem);
                 }
             }
+        }
+
+        private void Start()
+        {
+            GooglePlayController.UnlockAchievement(GPGSIds.achievement_open_the_game);
         }
 
         private void OnDestroy()
@@ -72,6 +80,18 @@ namespace Shop
                 shopItem.onClick.RemoveListener(BuyItem);
                 shopItem.onClick.AddListener(SelectItem);
                 shopItem.SetEquipable();
+
+                GooglePlayController.UnlockAchievement(GPGSIds.achievement_first_buy);
+
+                diamonds.text = $"{_playerConfig.Money}";
+                foreach (BladeSFX bladeSfxe in _bladeSO)
+                {
+                    if (!bladeSfxe.isAvalaible)
+                    {
+                        return;
+                    }
+                }
+                GooglePlayController.UnlockAchievement(GPGSIds.achievement_blade_collector);
             }
         }
 
@@ -85,6 +105,7 @@ namespace Shop
                     item.SetEquipable();
                 }
             }
+
             _playerConfig.CurrentBlade = shopItem.bladeSO.id;
             shopItem.onClick.RemoveListener(SelectItem);
             shopItem.SetItemUsed();
