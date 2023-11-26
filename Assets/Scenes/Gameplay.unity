@@ -181,8 +181,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 983d5dc1724acc1458d73a6d48bf7a8a, type: 3}
-  m_Color: {r: 0.3962264, g: 0.38314345, b: 0.38314345, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c40144029e032a54b93b1ab8322ff540, type: 3}
+  m_Color: {r: 1, g: 0.90588236, b: 0.6745098, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2942,7 +2942,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 30, y: -20}
-  m_SizeDelta: {x: 884.6795, y: 142.8487}
+  m_SizeDelta: {x: 884.6795, y: 63.2}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1631778120
 MonoBehaviour:
@@ -2992,7 +2992,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 55.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3152,7 +3152,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 34, y: -164}
-  m_SizeDelta: {x: 884.67944, y: 142.8487}
+  m_SizeDelta: {x: 884.67944, y: 63.2}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1733664459
 MonoBehaviour:
@@ -3202,7 +3202,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 55.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3634,6 +3634,7 @@ MonoBehaviour:
   timer: {fileID: 2012507571}
   scoreText: {fileID: 1631778120}
   diamondText: {fileID: 1733664459}
+  minimunForTrophy: 300
   mainMenu:
     sceneReference:
       sceneAsset: {fileID: 102900000, guid: 03afe668dd22e31448ab43ebe4da6a98, type: 3}
