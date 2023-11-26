@@ -1,4 +1,6 @@
 ﻿using System;
+using Cuttables;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,29 +10,45 @@ namespace Managers
     {
         private float currentTimer;
         private int currentLives;
-        [SerializeField] private int maxLives = 3;
-        [SerializeField] private float maxTimer = 1.0f;
+        private int score = 0;
+        [SerializeField] private float maxTimer = 60.0f;
+        [SerializeField] private TextMeshProUGUI timer;
+        [SerializeField] private TextMeshProUGUI scoreText;
         private bool isPlaying;
         private UnityEvent OnGameFinished;
 
 
         private void Awake()
         {
-            currentTimer = 0;
-            currentLives = maxLives;
+            currentTimer = maxTimer;
+            isPlaying = true;
         }
 
         private void Update()
         {
             if (isPlaying)
             {
-                currentTimer += Time.deltaTime;
-                if (currentTimer > maxTimer)
+                currentTimer -= Time.deltaTime;
+                TimeSpan timeSpan = TimeSpan.FromSeconds(currentTimer);
+                timer.text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+                if (currentTimer < 0)
                 {
                     OnGameFinished.Invoke();
                     isPlaying = false;
                 }
             }
+        }
+
+        public void AddPoint(GameObject cuttableItem)
+        {
+            score++;
+            scoreText.text = $"Score:{score}";
+            cuttableItem.GetComponent<CuttableItem>().OnCut.RemoveListener(AddPoint);
+        }
+        public void Explode(GameObject bomb)
+        {
+            isPlaying = false;
+            OnGameFinished.Invoke();
         }
     }
 }

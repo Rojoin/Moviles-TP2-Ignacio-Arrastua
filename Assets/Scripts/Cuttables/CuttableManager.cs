@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -9,6 +10,7 @@ namespace Cuttables
     public class CuttableManager : MonoBehaviour
     {
         [SerializeField] private List<CuttableSO> cuttableSO = new List<CuttableSO>();
+        [SerializeField] private GameManager gameManager;
         [SerializeField] private Transform parent;
         private Dictionary<string, ObjectPool<GameObject>> cuttablesByID = new();
 
@@ -39,11 +41,16 @@ namespace Cuttables
 
             GameObject newItem = null;
             pool.Get(out newItem);
-            CuttableItem cuttableItem = newItem.GetComponent<CuttableItem>();
-            cuttableItem.OnDespawn.AddListener(OnDespawn);
+            Cuttable cuttable = newItem.GetComponent<Cuttable>();
+            cuttable.OnDespawn.AddListener(OnDespawn);
 
             _cuttableBuilder.ItemConfigure(newItem, position, rotation, size, parent);
-            return cuttableItem;
+            if (cuttable is not Bomb)
+            {
+                cuttable.OnCut.AddListener(gameManager.AddPoint);
+            }
+            
+            return cuttable;
         }
 
         private void OnDespawn(GameObject CuttableItem)
