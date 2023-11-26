@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Earth
   id: 4
   image: {fileID: 2047992146, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  cutMaterial: {fileID: 2100000, guid: 07a49f9b3cf48a24c9124b722bc9c0cc, type: 2}
   asset: {fileID: 8475491197590333196, guid: dc0d32e4741335241afdd5ebfb8bf32a, type: 3}
   price: 300
   isAvalaible: 0

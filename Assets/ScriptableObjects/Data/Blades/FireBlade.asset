@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Fire
   id: 2
   image: {fileID: 695775810, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  cutMaterial: {fileID: 2100000, guid: 939481ad81dd44a458621ddecacf7652, type: 2}
   asset: {fileID: 2613462060424995206, guid: 101a8868c1adc5b40bdaf7526f47b7b5, type: 3}
   price: 300
   isAvalaible: 0

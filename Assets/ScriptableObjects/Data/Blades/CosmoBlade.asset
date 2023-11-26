@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Cosmos
   id: 1
   image: {fileID: 21300000, guid: d24440064edf84848b8d07c13a85d8bc, type: 3}
+  cutMaterial: {fileID: 2100000, guid: debc988e0ad5fa848b43e8f26c4f7e51, type: 2}
   asset: {fileID: 2653153344604433488, guid: f6bbcfa7e746d0340bd78dd22f35b3b3, type: 3}
   price: 300
   isAvalaible: 1

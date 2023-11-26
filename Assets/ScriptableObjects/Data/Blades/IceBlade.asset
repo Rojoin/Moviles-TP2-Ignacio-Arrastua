@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Ice
   id: 7
   image: {fileID: 1401011104, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  cutMaterial: {fileID: 2100000, guid: 07a49f9b3cf48a24c9124b722bc9c0cc, type: 2}
   asset: {fileID: 1864572845640764174, guid: a64a37f3dcfb87f44a8c6236b5d49b20, type: 3}
   price: 300
   isAvalaible: 1

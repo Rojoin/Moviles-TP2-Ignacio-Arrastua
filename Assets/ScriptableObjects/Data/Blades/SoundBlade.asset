@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Sound
   id: 4
   image: {fileID: 485823971, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  cutMaterial: {fileID: 2100000, guid: b8843863580f4ed4b99b410aa5e4d4a2, type: 2}
   asset: {fileID: 8099074118825668027, guid: a92ebdf897fa283428c50a41fe4411a5, type: 3}
   price: 300
   isAvalaible: 0

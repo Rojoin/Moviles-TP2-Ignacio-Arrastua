@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc64ccf07736408a9298e294864bd4be, type: 3}
-  m_Name: ElectricBlade
+  m_Name: DefaultBlade
   m_EditorClassIdentifier: 
-  name: Electric
-  id: 6
-  image: {fileID: 2062015785, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
-  cutMaterial: {fileID: 2100000, guid: b8843863580f4ed4b99b410aa5e4d4a2, type: 2}
-  asset: {fileID: 5818205763518135594, guid: 395d5ec7f996d364f94e11cfb40736d3, type: 3}
-  price: 300
-  isAvalaible: 0
+  name: Water
+  id: 11
+  image: {fileID: 1019859777, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  cutMaterial: {fileID: 2100000, guid: a4a5775682a79404da465a6de62a818c, type: 2}
+  asset: {fileID: 4284393854965010983, guid: be64fce1c18a8c84f8cc6394e4564924, type: 3}
+  price: 0
+  isAvalaible: 1

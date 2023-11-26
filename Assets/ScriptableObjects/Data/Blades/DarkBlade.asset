@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Dark
   id: 9
   image: {fileID: -606357570, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  cutMaterial: {fileID: 2100000, guid: 939481ad81dd44a458621ddecacf7652, type: 2}
   asset: {fileID: 8597731318025692521, guid: ae6bdf3417a5d6047a559654858dac31, type: 3}
   price: 300
   isAvalaible: 0

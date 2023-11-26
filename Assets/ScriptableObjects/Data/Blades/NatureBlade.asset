@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Nature
   id: 8
   image: {fileID: -651057808, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  cutMaterial: {fileID: 2100000, guid: 4f4cfaaa46e0ce54497ebc10d4d06622, type: 2}
   asset: {fileID: 2393817908272368249, guid: 26169785b8e30c944a512729256a05cd, type: 3}
   price: 300
   isAvalaible: 0

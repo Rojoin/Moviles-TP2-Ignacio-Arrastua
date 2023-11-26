@@ -12,5 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f84f46c7894af189a791d0268c1851, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  currentBlade: 7
+  BladeSfxes:
+  - {fileID: 11400000, guid: 8d36489049acb104bb91800b8d6e01d5, type: 2}
+  - {fileID: 11400000, guid: 39f16a80a64aa4443ba41c50ddb00784, type: 2}
+  - {fileID: 11400000, guid: d202e44aa1db8c949bc2a8dde86369f0, type: 2}
+  - {fileID: 11400000, guid: 7608711a09a13144cbeea633eef60219, type: 2}
+  - {fileID: 11400000, guid: 2e277d74c17ef264283980da39a29086, type: 2}
+  - {fileID: 11400000, guid: d824e8047685c724f8c796d186676b79, type: 2}
+  - {fileID: 11400000, guid: 3c311426f44f13f4085509edabeee085, type: 2}
+  - {fileID: 11400000, guid: 52dfe1b0a2ca6dc4d83a722f94d8a211, type: 2}
+  - {fileID: 11400000, guid: 6a3ace5d5c5f37c44a95b39e17e0b346, type: 2}
+  - {fileID: 11400000, guid: 46773031c9c0a374ca09ea34a9b2eb26, type: 2}
+  - {fileID: 11400000, guid: a37f41750faf81f45a23618fb9093dd8, type: 2}
+  currentBlade: 5
   _money: 2300
