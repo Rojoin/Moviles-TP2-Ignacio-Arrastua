@@ -6,6 +6,7 @@ namespace Shop
     [CreateAssetMenu(menuName = "Create PlayerConfig", fileName = "PlayerConfig", order = 0)]
     public class PlayerConfig : ScriptableObject
     {
+        public BladeSFX[] BladeSfxes;
         public int Money
         {
             get => _money;
@@ -49,6 +50,19 @@ namespace Shop
         private void SaveCurrentBlade()
         {
             PlayerPrefs.SetInt("CurrentBlade", CurrentBlade);
+        }
+
+        public BladeSFX GetCurrentBlade()
+        {
+            foreach (var VARIABLE in BladeSfxes)
+            {
+                if (VARIABLE.id == currentBlade)
+                {
+                    return VARIABLE;
+                }
+            }
+
+            return BladeSfxes[0];
         }
     }
 }
