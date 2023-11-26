@@ -9,6 +9,7 @@ namespace Shop
         public string name;
         public int id;
         public Sprite image;
+        public Material cutMaterial;
         public GameObject asset;
         public int price;
         public bool isAvalaible;

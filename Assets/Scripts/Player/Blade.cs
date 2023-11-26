@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
+using Shop;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Plane = UnityEngine.Plane;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Player
 {
     public class Blade : MonoBehaviour
     {
         [Header("Channels")]
+        [SerializeField] private PlayerConfig player;
         [SerializeField] private Vector2ChannelSO inputMovementChannel;
         [SerializeField] private BoolChannelSO inputTouchChannel;
-        [SerializeField] private TrailRenderer trail;
         [Header("Values")]
         [SerializeField] private float minSliceVelocity = 0.01f;
         [SerializeField] public float force = 50.0f;
@@ -25,11 +30,16 @@ namespace Player
         private Vector3 inputPosition;
         private LinkedList<Vector3> previousPosition = new LinkedList<Vector3>();
         [SerializeField] private int maxPreviousPos;
+        private GameObject trail;
+        public Material cutMaterial;
 
         private void Awake()
         {
             _collider = GetComponent<Collider>();
             mainCamera = Camera.main;
+            trail = Instantiate(player.GetCurrentBlade().asset, this.transform);
+            cutMaterial = player.GetCurrentBlade().cutMaterial;
+            trail.transform.position = Vector3.zero;
             StopSlice();
         }
 
@@ -57,16 +67,16 @@ namespace Player
 
         private void SetInputPosition(Vector2 obj)
         {
+            trail.gameObject.SetActive(isTouching);
             if (isTouching)
             {
                 inputPosition = obj;
                 ContinueSlice();
-                trail.enabled = true;
             }
             else
             {
                 StopSlice();
-                trail.enabled = false;
+              
             }
         }
 
@@ -81,18 +91,20 @@ namespace Player
         private void ContinueSlice()
         {
             Debug.Log("Slice Continue");
-          
+
             newPosition = mainCamera.ScreenToWorldPoint(inputPosition);
             newPosition.z = 0.0f;
             if (previousPosition.Count == 0)
             {
                 transform.position = newPosition;
             }
+
             previousPosition.AddFirst(newPosition);
             if (previousPosition.Count > maxPreviousPos)
             {
                 previousPosition.RemoveLast();
             }
+
             direction = newPosition - transform.position;
 
             velocity = direction.magnitude / Time.deltaTime;
