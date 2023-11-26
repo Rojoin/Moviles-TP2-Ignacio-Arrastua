@@ -67,12 +67,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871980c0d3b04f9b984ec28e0a451140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cuttableObjects:
-  - {fileID: 11400000, guid: 2e5bd2df3e38ca140a78762589c3ee24, type: 2}
   _cuttableManager: {fileID: 0}
-  minSpawnDelay: 10
+  minSpawnDelay: 0.5
   cuttableSize: 0.45
-  maxSpawnDelay: 11
+  maxSpawnDelay: 2
   minAngle: -15
   maxAngle: 15
   timeUntilDestroy: 10
@@ -93,9 +91,10 @@ MonoBehaviour:
   cuttableSO:
   - {fileID: 11400000, guid: 2e5bd2df3e38ca140a78762589c3ee24, type: 2}
   - {fileID: 11400000, guid: 32ae5b1fa5124a44bb54e5a9b80a7703, type: 2}
-  - {fileID: 11400000, guid: 7460d9c172b4e6248be586e14dbd4c15, type: 2}
+  - {fileID: 11400000, guid: 3580946e74e292b46bbf5ebef4b2d5bf, type: 2}
   - {fileID: 11400000, guid: 10609126da7bb0d459658f0a0e2a73b4, type: 2}
   - {fileID: 11400000, guid: 2ac5c18aa369bb4469f83196c76134b7, type: 2}
   - {fileID: 11400000, guid: 9141aa54e946b8b4ca1a6b4432fb6a81, type: 2}
+  bomb: {fileID: 11400000, guid: 3580946e74e292b46bbf5ebef4b2d5bf, type: 2}
   gameManager: {fileID: 0}
   parent: {fileID: 0}

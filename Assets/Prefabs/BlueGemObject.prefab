@@ -77,6 +77,17 @@ MonoBehaviour:
   whole: {fileID: 1192305602171195064}
   upperHull: {fileID: 0}
   loverHull: {fileID: 0}
+  despawnTime: 7
+  OnCut:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDespawn:
+    m_PersistentCalls:
+      m_Calls: []
+  isCut: 0
+  rigidbody: {fileID: 0}
+  collider: {fileID: 0}
+  SO: {fileID: 0}
 --- !u!65 &4574388168281194827
 BoxCollider:
   m_ObjectHideFlags: 0
