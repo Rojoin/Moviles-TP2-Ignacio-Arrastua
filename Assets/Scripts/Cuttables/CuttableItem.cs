@@ -11,8 +11,6 @@ namespace Cuttables
 
     class CuttableItem : Cuttable
     {
-       
-
         private void SliceObject(Blade player)
         {
             whole.SetActive(false);
@@ -27,8 +25,8 @@ namespace Cuttables
             SlicedHull hull = whole.Slice(objectPosition, dist);
 
             Debug.Log(hull);
-            upperHull = hull.CreateUpperHull(whole);
-            loverHull = hull.CreateLowerHull(whole);
+            upperHull = hull.CreateUpperHull(whole,player.cutMaterial);
+            loverHull = hull.CreateLowerHull(whole,player.cutMaterial);
 
             SetHullTransform(loverHull, objectPosition);
             SetHullTransform(upperHull, objectPosition);
