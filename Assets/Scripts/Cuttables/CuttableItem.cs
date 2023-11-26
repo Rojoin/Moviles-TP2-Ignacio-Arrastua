@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Cuttables;
 using EzySlice;
 using Player;
@@ -11,6 +12,7 @@ namespace Cuttables
 
     class CuttableItem : Cuttable
     {
+        
         private void SliceObject(Blade player)
         {
             whole.SetActive(false);
@@ -35,11 +37,20 @@ namespace Cuttables
             SetRB(upperHull, dist, player.force, objectPosition);
 
             collider.enabled = false;
-            rigidbody.isKinematic = true;
-            enabled = false;
             OnCut.Invoke(gameObject);
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+            StartCoroutine(DespawnObject());
+            isCut = true;
         }
 
+        private IEnumerator DespawnObject()
+        {
+            yield return new WaitForSeconds(despawnTime);
+            Debug.Log("Despawn gem");
+            OnDespawn.Invoke(this.gameObject);
+            yield break;
+        }
         private void SetHullTransform(GameObject hull, Vector3 objectPosition)
         {
             hull.transform.parent = transform;
@@ -62,11 +73,16 @@ namespace Cuttables
             {
                 entryPoint = other.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
             }
+
+            if (other.gameObject.CompareTag("Respawn"))
+            {
+                OnDespawn.Invoke(this.gameObject);
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent<Blade>(out Blade player) && player.isSlicing)
+            if (other.TryGetComponent<Blade>(out Blade player) && player.isSlicing && !isCut)
             {
                 exitPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
                 SliceObject(player);

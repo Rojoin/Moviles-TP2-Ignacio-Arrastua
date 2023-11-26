@@ -42,14 +42,15 @@ namespace Cuttables
             GameObject newItem = null;
             pool.Get(out newItem);
             Cuttable cuttable = newItem.GetComponent<Cuttable>();
+            cuttable.SO = cuttableSo;
             cuttable.OnDespawn.AddListener(OnDespawn);
-
+            cuttable.enabled = true;
             _cuttableBuilder.ItemConfigure(newItem, position, rotation, size, parent);
             if (cuttable is not Bomb)
             {
                 cuttable.OnCut.AddListener(gameManager.AddPoint);
             }
-            
+
             return cuttable;
         }
 
@@ -57,6 +58,11 @@ namespace Cuttables
         {
             CuttableItem item = CuttableItem.GetComponent<CuttableItem>();
             item.OnDespawn.RemoveListener(OnDespawn);
+            Destroy(item.loverHull);
+            Destroy(item.upperHull);
+            item.rigidbody.velocity = Vector3.zero;
+            item.rigidbody.angularVelocity = Vector3.zero;
+            item.isCut = false;
             ObjectPool<GameObject> pool = cuttablesByID[item.SO.name];
             pool.Release(CuttableItem);
         }

@@ -43,10 +43,12 @@ namespace Cuttables
             {
                 var item = _cuttableManager._cuttableFactory.GetItem();
                 
-                Vector3 position = new ();
-                position.x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x);
-                position.y = Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y);
-                position.z = 0;
+                Vector3 position = new ()
+                {
+                    x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
+                    y = Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y),
+                    z = 0
+                };
 
                 Quaternion rotation = Quaternion.Euler(0.0f, 0.0f, Random.Range(minAngle, maxAngle));
                 var inst = _cuttableManager.AddNewItem(item, position, rotation,cuttableSize);

@@ -10,6 +10,10 @@ namespace Cuttables
             Transform parent)
         {
             CuttableItem.transform.SetParent(parent);
+            CuttableItem.GetComponent<CuttableItem>().whole.SetActive(true);
+            CuttableItem.GetComponent<CuttableItem>().rigidbody.isKinematic = false;
+            CuttableItem.GetComponent<CuttableItem>().collider.enabled = true;
+            CuttableItem.transform.localPosition = Vector3.zero;
             CuttableItem.transform.position = position;
             CuttableItem.transform.rotation = rotation;
             CuttableItem.transform.localScale = Vector3.one*size;
