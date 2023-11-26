@@ -84,7 +84,10 @@ namespace Managers
             {
                 GooglePlayController.UnlockAchievement(GPGSIds.achievement_diamond_king);
             }
-
+            if (SystemInfo.supportsVibration)
+            {
+                Handheld.Vibrate();
+            }
             isPlaying = false;
             _cuttableSpawner.enabled = false;
             Time.timeScale = 0;
