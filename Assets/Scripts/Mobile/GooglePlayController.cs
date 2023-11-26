@@ -27,6 +27,18 @@ public class GooglePlayController : MonoBehaviour
             string imageUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
 
             Debug.Log("Sucessfully login:" + userName);
+            PlayGamesPlatform.Activate();
+            Social.localUser.Authenticate((bool success) =>
+            {
+                if (success)
+                {
+                    Debug.Log("Google Play Games Services authenticated successfully");
+                }
+                else
+                {
+                    Debug.LogError("Failed to authenticate with Google Play Games Services");
+                }
+            });
         }
         else
         {
@@ -40,5 +52,21 @@ public class GooglePlayController : MonoBehaviour
     public void ManualSignIn()
     {
         PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication);
+    }
+
+    public static void UnlockAchievement(string achievementId)
+    {
+        // Unlock achievement
+        Social.ReportProgress(achievementId, 100.0, (bool success) =>
+        {
+            if (success)
+            {
+                Debug.Log("Achievement unlocked: " + achievementId);
+            }
+            else
+            {
+                Debug.LogError("Failed to unlock achievement: " + achievementId);
+            }
+        });
     }
 }
