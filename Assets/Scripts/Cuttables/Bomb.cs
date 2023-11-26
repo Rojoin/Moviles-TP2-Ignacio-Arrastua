@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 
 namespace Cuttables
 {
@@ -6,7 +7,14 @@ namespace Cuttables
     {
         protected override void OnTriggerEnter(Collider other)
         {
-           OnCut.Invoke(this.gameObject);
+            if (other.TryGetComponent<Blade>(out Blade player) && player.isSlicing && !isCut)
+            {
+                OnCut.Invoke(this.gameObject);
+            }
+            if (other.gameObject.CompareTag("Respawn"))
+            {
+                OnDespawn.Invoke(this.gameObject);
+            }
         }
     }
 }

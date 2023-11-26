@@ -10,7 +10,6 @@ namespace Cuttables
     public class CuttableSpawner : MonoBehaviour
     {
         private BoxCollider spawnArea;
-        [SerializeField] private CuttableSO[] cuttableObjects;
         [SerializeField] private CuttableManager _cuttableManager;
         [SerializeField] float minSpawnDelay = 0.25f;
         [SerializeField] float cuttableSize = 0.25f;
@@ -41,7 +40,7 @@ namespace Cuttables
         {
             while (enabled)
             {
-                var item = _cuttableManager._cuttableFactory.GetItem();
+                CuttableSO item = _cuttableManager._cuttableFactory.GetItem();
                 
                 Vector3 position = new ()
                 {
@@ -51,7 +50,7 @@ namespace Cuttables
                 };
 
                 Quaternion rotation = Quaternion.Euler(0.0f, 0.0f, Random.Range(minAngle, maxAngle));
-                var inst = _cuttableManager.AddNewItem(item, position, rotation,cuttableSize);
+                Cuttable inst = _cuttableManager.AddNewItem(item, position, rotation,cuttableSize);
 
                 float force = Random.Range(minForce, maxForce);
                 inst.GetComponent<Rigidbody>().AddForce(inst.transform.up * force, ForceMode.Impulse);

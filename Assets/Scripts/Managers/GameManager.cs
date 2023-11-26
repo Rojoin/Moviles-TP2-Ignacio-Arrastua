@@ -15,6 +15,7 @@ namespace Managers
         [SerializeField] private UIManager _uIManager;
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private CuttableSpawner _cuttableSpawner;
+        [SerializeField] private CuttableManager _cuttableManager;
         private float currentTimer;
         private int currentLives;
         private int score = 0;
@@ -24,6 +25,7 @@ namespace Managers
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI diamondText;
         private bool isPlaying = false;
+        private bool isHalfTime = false;
         private bool isPaused = false;
        [SerializeField] private int minimunForTrophy = 300;
         private UnityEvent OnGameFinished;
@@ -69,6 +71,12 @@ namespace Managers
                 TimeSpan timeSpan = TimeSpan.FromSeconds(currentTimer);
                 timer.text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
                 moneyToAdd = score / 2;
+                if (!isHalfTime && currentTimer < maxTimer/2)
+                {
+                    isHalfTime = true;
+                    Debug.Log("Activate Bomb Factory");
+                    _cuttableManager.SetBombFactory();
+                }
                 if (currentTimer < 0)
                 {
                     GameOver();
@@ -80,6 +88,7 @@ namespace Managers
         {
             _uIManager.ActivateGameOverCanvas(_playerConfig.Money, moneyToAdd);
             _playerConfig.Money += moneyToAdd;
+            _cuttableSpawner.enabled = false;
             if (_playerConfig.Money >= minimunForTrophy)
             {
                 GooglePlayController.UnlockAchievement(GPGSIds.achievement_diamond_king);

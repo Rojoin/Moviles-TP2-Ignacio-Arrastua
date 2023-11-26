@@ -9,12 +9,14 @@ namespace Cuttables
 {
     public class CuttableManager : MonoBehaviour
     {
-        [SerializeField] private List<CuttableSO> cuttableSO = new List<CuttableSO>();
+        [SerializeField] private List<CuttableSO> cuttableSO;
+        [SerializeField] private CuttableSO bomb;
         [SerializeField] private GameManager gameManager;
         [SerializeField] private Transform parent;
         private Dictionary<string, ObjectPool<GameObject>> cuttablesByID = new();
 
         public CuttableFactory _cuttableFactory;
+        private RandomCuttableFactory bombFactory;
         public CuttableBuilder _cuttableBuilder = new();
         int cuttableSize = 2;
 
@@ -22,12 +24,18 @@ namespace Cuttables
         {
             foreach (CuttableSO t in cuttableSO)
             {
+                Debug.Log(t.name);
                 cuttablesByID.Add(t.name, new ObjectPool<GameObject>(() => Instantiate(t.asset.gameObject, transform),
                     item => { item.gameObject.SetActive(true); }, item => { item.gameObject.SetActive(false); },
                     item => { Destroy(item.gameObject); }, false, cuttableSize, 100));
             }
+            cuttablesByID.Add(bomb.name, new ObjectPool<GameObject>(() => Instantiate(bomb.asset.gameObject, transform),
+                item => { item.gameObject.SetActive(true); }, item => { item.gameObject.SetActive(false); },
+                item => { Destroy(item.gameObject); }, false, cuttableSize, 100));
 
             _cuttableFactory = new RandomCuttableFactory(cuttableSO);
+            bombFactory = new RandomCuttableFactory(cuttableSO);
+            bombFactory.AddToList(bomb);
         }
 
         public Cuttable AddNewItem(CuttableSO cuttableSo, Vector3 position, Quaternion rotation, float size)
@@ -50,13 +58,17 @@ namespace Cuttables
             {
                 cuttable.OnCut.AddListener(gameManager.AddPoint);
             }
+            else
+            {
+                cuttable.OnCut.AddListener(gameManager.Explode);
+            }
 
             return cuttable;
         }
 
         private void OnDespawn(GameObject CuttableItem)
         {
-            CuttableItem item = CuttableItem.GetComponent<CuttableItem>();
+            Cuttable item = CuttableItem.GetComponent<Cuttable>();
             item.OnDespawn.RemoveListener(OnDespawn);
             Destroy(item.loverHull);
             Destroy(item.upperHull);
@@ -65,6 +77,11 @@ namespace Cuttables
             item.isCut = false;
             ObjectPool<GameObject> pool = cuttablesByID[item.SO.name];
             pool.Release(CuttableItem);
+        }
+
+        public void SetBombFactory()
+        {
+            _cuttableFactory = bombFactory;
         }
     }
 }

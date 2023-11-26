@@ -10,7 +10,7 @@ namespace Cuttables
 
         public CuttableFactory(List<CuttableSO> cuttableSos)
         {
-            _cuttableSos = cuttableSos;
+            _cuttableSos = new List<CuttableSO>(cuttableSos);
         }
 
         public abstract CuttableSO GetItem();
@@ -25,6 +25,11 @@ namespace Cuttables
 
         public RandomCuttableFactory(List<CuttableSO> cuttableSos) : base(cuttableSos)
         {
+           
+        }
+        public void AddToList(CuttableSO cuttableSo)
+        {
+            _cuttableSos.Add(cuttableSo);
         }
     }
 }
