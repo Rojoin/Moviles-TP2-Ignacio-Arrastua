@@ -16,6 +16,7 @@ namespace Managers
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private CuttableSpawner _cuttableSpawner;
         [SerializeField] private CuttableManager _cuttableManager;
+        [SerializeField] private VoidChannelSO activateCountDown;
         private float currentTimer;
         private int currentLives;
         private int score = 0;
@@ -45,6 +46,16 @@ namespace Managers
             _uIManager.restartLevelPause.onClick.AddListener(RestartLevel);
             _uIManager.exitLevelPause.onClick.AddListener(GoToMenu);
             _uIManager.exitLevel.onClick.AddListener(GoToMenu);
+            _uIManager.skipTutorial.onClick.AddListener(SkipTutorial);
+          
+        }
+
+       
+
+        private void SkipTutorial()
+        {
+            _uIManager.ActivateGame();
+            activateCountDown.RaiseEvent();
             Invoke(nameof(StartGame), timeBeforeGameStarts);
         }
 
@@ -61,6 +72,7 @@ namespace Managers
         private void StartGame()
         {
             isPlaying = true;
+            _cuttableSpawner.enabled = true;
         }
 
         private void Update()

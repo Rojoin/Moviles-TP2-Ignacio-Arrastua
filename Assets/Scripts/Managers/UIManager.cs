@@ -8,10 +8,12 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private CanvasGroup gameOver;
+    [SerializeField] private CanvasGroup inGame;
     [SerializeField] private CanvasGroup PauseScreen;
     [SerializeField] private CanvasGroup TutorialScreen;
     [SerializeField] private TextMeshProUGUI diamonds;
     [SerializeField] public Button pauseLevel;
+    [SerializeField] public Button skipTutorial;
     [SerializeField] public Button continueLevel;
     [SerializeField] public Button restartLevel;
     [SerializeField] public Button exitLevel;
@@ -44,6 +46,11 @@ public class UIManager : MonoBehaviour
         SetCanvasVisibility(gameOver, true);
         SetCanvasVisibility(PauseScreen, false);
         StartCoroutine(CountUpNumbers(currentDiamonds, newDiamonds));
+    } 
+    public void ActivateGame()
+    {
+        SetCanvasVisibility(TutorialScreen, false);
+        SetCanvasVisibility(inGame, true);
     }
 
     private IEnumerator CountUpNumbers(float initialDiamonds, float newDiamonds)

@@ -56,12 +56,13 @@ public class GooglePlayController : MonoBehaviour
 
     public static void UnlockAchievement(string achievementId)
     {
-        // Unlock achievement
+
         Social.ReportProgress(achievementId, 100.0, (bool success) =>
         {
             if (success)
             {
                 Debug.Log("Achievement unlocked: " + achievementId);
+              //  Social.ShowAchievementsUI();
             }
             else
             {
