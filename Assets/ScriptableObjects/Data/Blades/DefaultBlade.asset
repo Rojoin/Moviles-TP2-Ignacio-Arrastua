@@ -18,4 +18,4 @@ MonoBehaviour:
   cutMaterial: {fileID: 2100000, guid: a4a5775682a79404da465a6de62a818c, type: 2}
   asset: {fileID: 4284393854965010983, guid: be64fce1c18a8c84f8cc6394e4564924, type: 3}
   price: 0
-  isAvalaible: 1
+  isAvalaible: 0

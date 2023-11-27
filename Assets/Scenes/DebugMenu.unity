@@ -2496,10 +2496,10 @@ MonoBehaviour:
   m_Content: {fileID: 884044470}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 0
   m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_Inertia: 0
+  m_DecelerationRate: 1.4
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 2108523465}
   m_HorizontalScrollbar: {fileID: 0}
@@ -2953,11 +2953,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 43.9
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 3.6
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1

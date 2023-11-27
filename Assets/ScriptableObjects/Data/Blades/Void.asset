@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Void
   id: 10
   image: {fileID: -1611920951, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  cutMaterial: {fileID: 0}
   asset: {fileID: 1367619002952535313, guid: 664c64bbb000f5e428ca3b8f7e0ea923, type: 3}
   price: 300
-  isAvalaible: 1
+  isAvalaible: 0
